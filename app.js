@@ -11,7 +11,9 @@ const pcScoreSpan = document.getElementById("pc-score");
 const yourScoreSpan = document.getElementById("your-score");
 
 const modalCardSection = document.querySelector(".modal-card");
-const finalMessagePar = document.createElement("img");
+const finalMessagePar = document.getElementById("final-message");
+
+const playAgainBtn = document.getElementById("play-again");
 //* --------- Variables
 let userSelectImg = document.createElement("img");
 let pcSelectImg = document.createElement("img");
@@ -32,11 +34,19 @@ selectionArticle.addEventListener("click", (e) => {
   }
 });
 
+playAgainBtn.addEventListener("click", () => {
+  // modalCardSection.classList.toggle("show");
+  // modalCardSection.classList.toggle("remove");
+  modalCardSection.classList.display = "none";
+  window.location.reload();
+});
+
 //* --------- Functions
 
 const createPcSelection = () => {
   const pcArr = ["rock", "paper", "scissor"];
   pcRandom = pcArr[Math.floor(Math.random() * 3)];
+  pcRandom = "rock";
   pcSelectImg.src = `./assets/${pcRandom}.png`;
   pcSelectImg.alt = pcRandom;
   pcChoiceDiv.appendChild(pcSelectImg);
@@ -87,8 +97,19 @@ const youWin = () => {
 const openModel = () => {
   modalCardSection.classList.add("show");
   if (yourScoreSpan.textContent === "10") {
+    finalMessagePar.textContent = "💃 You Win🕺";
+    document.querySelector(".modal").style.backgroundColor = GREEN;
+    playAgainBtn.style.color = GREEN;
+  } else {
+    finalMessagePar.textContent = "☠️ You Lost";
+    document.querySelector(".modal").style.backgroundColor = RED;
+    playAgainBtn.style.color = RED;
   }
 };
+
+localStorage.setItem("highScore", 0);
+
+console.log(localStorage.getItem("highScore"));
 // const rockImg = document.getElementById("rock");
 // const paperImg = document.getElementById("paper");
 // const scissorImg = document.getElementById("scissor");
